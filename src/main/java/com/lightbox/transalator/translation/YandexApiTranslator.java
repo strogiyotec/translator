@@ -53,7 +53,7 @@ public final class YandexApiTranslator implements Translator {
                     if (rslt.succeeded()) {
                         response.complete(rslt.result().bodyAsJsonObject());
                     } else {
-                        throw new IllegalStateException(rslt.cause());
+                        response.fail(new IllegalStateException(rslt.cause()));
                     }
                 });
         return response;
