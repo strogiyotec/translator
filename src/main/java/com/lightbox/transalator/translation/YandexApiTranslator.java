@@ -3,11 +3,13 @@ package com.lightbox.transalator.translation;
 import io.vertx.core.Future;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.client.WebClient;
+import lombok.AllArgsConstructor;
 import org.springframework.core.env.Environment;
 
 /**
  * Translate text using Yandex API.
  */
+@AllArgsConstructor
 public final class YandexApiTranslator implements Translator {
 
     /**
@@ -27,19 +29,10 @@ public final class YandexApiTranslator implements Translator {
      * @param environment Spring environment
      */
     public YandexApiTranslator(final WebClient webClient, final Environment environment) {
-        this.webClient = webClient;
-        this.apiKey = environment.getProperty("api.key");
-    }
-
-    /**
-     * Ctor.
-     *
-     * @param webClient Http client
-     * @param apiKey    Api key
-     */
-    public YandexApiTranslator(final WebClient webClient, final String apiKey) {
-        this.webClient = webClient;
-        this.apiKey = apiKey;
+        this(
+                webClient,
+                environment.getProperty("api.key")
+        );
     }
 
     @Override
