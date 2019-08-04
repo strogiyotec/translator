@@ -1,7 +1,7 @@
 package com.lightbox.transalator.translation;
 
 /**
- * Base interface for all translation API's implementations
+ * Base interface for all translation API's implementations.
  */
 public interface Translator {
 
