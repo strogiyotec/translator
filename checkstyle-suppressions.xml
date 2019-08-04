@@ -7,10 +7,17 @@
 <suppressions>
     <suppress checks="FinalClass"
               files="com.lightbox.transalator.TranslatorApplication.java"/>
-    <suppress checks="LineLength"
+    <suppress checks="HiddenField"
               files="com.lightbox.transalator.translation.YandexApiTranslator.java"
-              lines="26,32"/>
+              lines="36"/>
     <suppress checks="LineLength"
-              files="com.lightbox.transalator.translation.ValidatedApiRequest.java"
-              lines="30,33,38,45"/>
+              files="com.lightbox.transalator.verticles.TranslationResource.java"/>
+    <suppress checks="LineLength"
+              files="com.lightbox.transalator.translation.YandexApiTranslator.java"/>
+    <suppress checks="LineLength"
+              files="com.lightbox.transalator.translation.ValidatedApiRequest.java"/>
+    <suppress checks="LineLength"
+              files="com.lightbox.transalator.translation.Translator.java"
+              lines="17"/>
+
 </suppressions>
