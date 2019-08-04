@@ -1,5 +1,6 @@
 package com.lightbox.transalator.verticles;
 
+import com.lightbox.transalator.db.TranslationSave;
 import com.lightbox.transalator.translation.Translator;
 import io.netty.handler.codec.http.HttpHeaderValues;
 import io.netty.handler.codec.http.HttpResponseStatus;
@@ -33,22 +34,29 @@ public final class TranslationResource extends AbstractVerticle {
     private final int port;
 
     /**
+     * Save translation.
+     */
+    private final TranslationSave translationSave;
+
+    /**
      * Ctor.
      *
-     * @param translator  Translator instance
-     * @param environment Spring environment
+     * @param translator      Translator instance
+     * @param environment     Spring environment
+     * @param translationSave Translation save
      */
-    public TranslationResource(final Translator translator, final Environment environment) {
+    public TranslationResource(final Translator translator, final Environment environment, final TranslationSave translationSave) {
         this(
                 translator,
-                Integer.parseInt(environment.getProperty("port"))
+                Integer.parseInt(environment.getProperty("port")),
+                translationSave
         );
     }
 
     @Override
     public void start() {
         final Router router = Router.router(this.vertx);
-        TranslationResource.configureRouter(router, translator);
+        this.configureRouter(router);
         this.vertx.createHttpServer()
                 .requestHandler(router::accept)
                 .listen(this.port, handler -> {
@@ -63,26 +71,40 @@ public final class TranslationResource extends AbstractVerticle {
     /**
      * Create rest end point for translation.
      *
-     * @param router     Vertx router
-     * @param translator Translator to use in order to translate
+     * @param router Vertx router
      */
-    private static void configureRouter(final Router router, final Translator translator) {
+    private void configureRouter(final Router router) {
         router.route(HttpMethod.GET, "/translate")
                 .handler(handler -> {
                     final HttpServerRequest request = handler.request();
                     final HttpServerResponse response = handler.response();
-                    final Future<JsonObject> translation = translator.translate(
+                    final Future<JsonObject> translation = this.translator.translate(
                             request.getParam("languageFrom"),
                             request.getParam("languageTo"),
                             request.getParam("text")
                     );
                     translation.setHandler(translationHandler -> {
                         if (translationHandler.succeeded()) {
-                            response.putHeader(HttpHeaders.CONTENT_TYPE, HttpHeaderValues.APPLICATION_JSON.toString())
-                                    .setStatusCode(HttpResponseStatus.OK.code())
-                                    .end(translationHandler.result().toString());
+                            final JsonObject result = translationHandler.result();
+                            this.translationSave.save(
+                                    new JsonObject().put("languageFrom", request.getParam("languageFrom"))
+                                            .put("languageTo", request.getParam("languageTo"))
+                                            .put("text", request.getParam("text"))
+                                            .put("translatedText", result.getJsonArray("text").getString(0))
+                            ).setHandler(saveHandler -> {
+                                if (saveHandler.succeeded()) {
+                                    response.putHeader(HttpHeaders.CONTENT_TYPE, HttpHeaderValues.APPLICATION_JSON.toString())
+                                            .setStatusCode(HttpResponseStatus.OK.code())
+                                            .end(result.toString());
+                                } else {
+                                    response.putHeader(HttpHeaders.CONTENT_TYPE, HttpHeaderValues.TEXT_PLAIN.toString())
+                                            .setStatusCode(HttpResponseStatus.BAD_REQUEST.code())
+                                            .end(saveHandler.cause().getMessage());
+                                }
+                            });
+
                         } else {
-                            response.putHeader(HttpHeaders.CONTENT_TYPE, HttpHeaderValues.APPLICATION_JSON.toString())
+                            response.putHeader(HttpHeaders.CONTENT_TYPE, HttpHeaderValues.TEXT_PLAIN.toString())
                                     .setStatusCode(HttpResponseStatus.BAD_REQUEST.code())
                                     .end(translationHandler.cause().getMessage());
                         }

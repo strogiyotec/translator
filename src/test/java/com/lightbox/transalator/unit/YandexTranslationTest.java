@@ -22,7 +22,7 @@ public final class YandexTranslationTest {
     /**
      * Test api key for yandex.
      */
-    private static final String API_KEY = "trnsl.1.1.20190804T055114Z.9f8638d18e86921e.9eec547274ef9995e9e39ad6f294d5f7b39c55f0";
+    public static final String API_KEY = "trnsl.1.1.20190804T055114Z.9f8638d18e86921e.9eec547274ef9995e9e39ad6f294d5f7b39c55f0";
 
 
     /**

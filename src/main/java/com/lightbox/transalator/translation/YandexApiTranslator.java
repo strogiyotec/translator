@@ -15,7 +15,7 @@ public final class YandexApiTranslator implements Translator {
     /**
      * Yandex api url.
      */
-    private static final String YANDEX_API_URL = "https://translate.yandex.net/api/v1.5/tr.json/translate";
+    private static final String YANDEX_API_URL = "https://translate.yandex.net/api/v1.5/tr.json/translate?key=%s&text=%s&lang=%s";
 
     /**
      * Http client.
@@ -43,7 +43,8 @@ public final class YandexApiTranslator implements Translator {
     @Override
     public Future<JsonObject> translate(final String languageFrom, final String languageTo, final String text) {
         final Future<JsonObject> response = Future.future();
-        this.webClient.getAbs(YANDEX_API_URL)
+        final String lang = String.format("%s-%s", languageFrom, languageTo);
+        this.webClient.getAbs(String.format(YANDEX_API_URL,this.apiKey,text,lang))
                 .addQueryParam("key", this.apiKey)
                 .addQueryParam("text", text)
                 .addQueryParam("lang", String.format("%s-%s", languageFrom, languageTo))
