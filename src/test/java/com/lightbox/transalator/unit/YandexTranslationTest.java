@@ -57,7 +57,6 @@ public final class YandexTranslationTest {
                 .send(rslt -> {
                     if (rslt.succeeded()) {
                         final JsonObject jsonObject = rslt.result().bodyAsJsonObject();
-                        System.out.println(jsonObject);
                         Assert.assertThat(jsonObject.getJsonArray("text").getString(0), CoreMatchers.is("привет"));
                         async.complete();
                         webClient.close();
