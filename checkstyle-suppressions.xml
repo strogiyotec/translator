@@ -10,4 +10,7 @@
     <suppress checks="LineLength"
               files="com.lightbox.transalator.translation.YandexApiTranslator.java"
               lines="26,32"/>
+    <suppress checks="LineLength"
+              files="com.lightbox.transalator.translation.ValidatedApiRequest.java"
+              lines="30,33,38,45"/>
 </suppressions>
