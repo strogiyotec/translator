@@ -13,6 +13,11 @@ import org.springframework.core.env.Environment;
 public final class YandexApiTranslator implements Translator {
 
     /**
+     * Yandex api url.
+     */
+    private static final String YANDEX_API_URL = "https://translate.yandex.net/api/v1.5/tr.json/translate";
+
+    /**
      * Http client.
      */
     private final WebClient webClient;
@@ -38,7 +43,7 @@ public final class YandexApiTranslator implements Translator {
     @Override
     public Future<JsonObject> translate(final String languageFrom, final String languageTo, final String text) {
         final Future<JsonObject> response = Future.future();
-        this.webClient.getAbs("https://translate.yandex.net/api/v1.5/tr.json/translate")
+        this.webClient.getAbs(YANDEX_API_URL)
                 .addQueryParam("key", this.apiKey)
                 .addQueryParam("text", text)
                 .addQueryParam("lang", String.format("%s-%s", languageFrom, languageTo))

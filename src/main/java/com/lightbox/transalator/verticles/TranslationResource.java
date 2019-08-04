@@ -28,7 +28,7 @@ public final class TranslationResource extends AbstractVerticle {
     private final Translator translator;
 
     /**
-     * Http server port
+     * Http server port.
      */
     private final int port;
 
@@ -57,7 +57,7 @@ public final class TranslationResource extends AbstractVerticle {
                     } else {
                         log.error("Can't start http server in port {}", this.port, handler.cause());
                     }
-                })
+                });
     }
 
     /**
@@ -71,7 +71,11 @@ public final class TranslationResource extends AbstractVerticle {
                 .handler(handler -> {
                     final HttpServerRequest request = handler.request();
                     final HttpServerResponse response = handler.response();
-                    final Future<JsonObject> translation = translator.translate(request.getParam("languageFrom"), request.getParam("languageTo"), request.getParam("text"));
+                    final Future<JsonObject> translation = translator.translate(
+                            request.getParam("languageFrom"),
+                            request.getParam("languageTo"),
+                            request.getParam("text")
+                    );
                     translation.setHandler(translationHandler -> {
                         if (translationHandler.succeeded()) {
                             response.putHeader(HttpHeaders.CONTENT_TYPE, HttpHeaderValues.APPLICATION_JSON.toString())
