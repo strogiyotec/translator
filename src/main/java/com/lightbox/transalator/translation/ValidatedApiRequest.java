@@ -1,6 +1,6 @@
 package com.lightbox.transalator.translation;
 
-import io.vertx.core.Promise;
+import io.vertx.core.Future;
 import io.vertx.core.json.JsonObject;
 import lombok.AllArgsConstructor;
 import org.springframework.util.StringUtils;
@@ -38,7 +38,7 @@ public final class ValidatedApiRequest implements Translator {
      * @return Translated text
      */
     @Override
-    public Promise<JsonObject> translate(final String languageFrom, final String languageTo, final String text) {
+    public Future<JsonObject> translate(final String languageFrom, final String languageTo, final String text) {
         if (!this.languages.contains(languageFrom)) {
             throw new IllegalStateException(
                     String.format("Api doesn't support language from [%s]", languageFrom)

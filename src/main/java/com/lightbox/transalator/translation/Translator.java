@@ -1,6 +1,6 @@
 package com.lightbox.transalator.translation;
 
-import io.vertx.core.Promise;
+import io.vertx.core.Future;
 import io.vertx.core.json.JsonObject;
 
 /**
@@ -14,5 +14,5 @@ public interface Translator {
      * @param text         Text to translate
      * @return Promise with translated text
      */
-    Promise<JsonObject> translate(String languageFrom, String languageTo, String text);
+    Future<JsonObject> translate(String languageFrom, String languageTo, String text);
 }
