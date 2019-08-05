@@ -15,3 +15,11 @@ If you want to contribute please check that your code doesn't have any checkstyl
 
 mvn:checkstyle:checkstyle
 ```
+
+
+Configurable properties: in order to configure project you can use **application.properties** file (src/resources)
+
+1) **api.key** - api key for yandex translator api
+2) **port** - server port
+
+This project uses H2 db.
