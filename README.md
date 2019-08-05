@@ -15,7 +15,11 @@ If you want to contribute please check that your code doesn't have any checkstyl
 
 mvn:checkstyle:checkstyle
 ```
+Also check that all tests work 
 
+```groovy
+mvn test
+```
 
 Configurable properties: in order to configure project you can use **application.properties** file (src/resources)
 
