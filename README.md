@@ -27,7 +27,7 @@ Configurable properties: in order to configure project you can use **application
 2) **port** - server port
 
 This project uses H2 db.
-
+In order to do database migrations Flyway is used
 
 How to use?
 
