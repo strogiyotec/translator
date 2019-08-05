@@ -45,9 +45,6 @@ public final class YandexApiTranslator implements Translator {
         final Future<JsonObject> response = Future.future();
         final String lang = String.format("%s-%s", languageFrom, languageTo);
         this.webClient.getAbs(String.format(YANDEX_API_URL,this.apiKey,text,lang))
-                .addQueryParam("key", this.apiKey)
-                .addQueryParam("text", text)
-                .addQueryParam("lang", String.format("%s-%s", languageFrom, languageTo))
                 .send(rslt -> {
                     if (rslt.succeeded()) {
                         response.complete(rslt.result().bodyAsJsonObject());
