@@ -3,7 +3,7 @@ Rest api to translate text
 
 This is the test project that uses Yandex API in order to translate text
 
-In order to run uses the following command
+In order to run use the following command
 
 ```groovy
 mvn spring-boot:run
