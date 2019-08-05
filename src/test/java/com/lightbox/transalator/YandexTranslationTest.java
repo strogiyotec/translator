@@ -1,4 +1,4 @@
-package com.lightbox.transalator.unit;
+package com.lightbox.transalator;
 
 import io.vertx.core.Vertx;
 import io.vertx.core.json.JsonObject;
