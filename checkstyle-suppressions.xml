@@ -13,7 +13,7 @@
               files="com.lightbox.transalator.db.SaveYandexTranslation.java"/>
     <suppress checks="HiddenField"
               files="com.lightbox.transalator.translation.YandexApiTranslator.java"
-              lines="36"/>
+              lines="42"/>
     <suppress checks="HiddenField"
               files="com.lightbox.transalator.verticles.TranslationResource.java"/>
     <suppress checks="NewlineAtEndOfFile"

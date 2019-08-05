@@ -46,10 +46,20 @@ public final class YandexApiTranslator implements Translator {
         );
     }
 
+    /**
+     * Split words by white space.
+     * Sends http request to translate each single word and store result in List of futures
+     * Create language as concat of langFrom  with langTo because this format is used by Yandex
+     * Merge futures result into single future
+     * @param languageFrom Original language
+     * @param languageTo   Language to translate
+     * @param text         Text to translate
+     * @return Result wrapped by future
+     */
     @Override
     public Future<JsonObject> translate(final String languageFrom, final String languageTo, final String text) {
         final String[] words = text.split(" ");
-        final String lang = String.format("%s-%s", languageFrom, languageTo);//this format is used by Yandex api
+        final String lang = String.format("%s-%s", languageFrom, languageTo);
         final Future<JsonObject> result = Future.future();
         final List<Future> futures = new ArrayList<>(words.length);
         this.collectFutures(words, lang, futures);
