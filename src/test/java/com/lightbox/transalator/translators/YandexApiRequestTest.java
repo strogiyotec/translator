@@ -51,7 +51,7 @@ public final class YandexApiRequestTest {
     public void testSuccessResult(final TestContext context) {
         final Async async = context.async();
         new YandexApiTranslator(WebClient.create(this.vertx), YandexTranslationTest.API_KEY)
-                .translate("en", "ru", "hello")
+                .translate("en", "ru", "hello how are you")
                 .setHandler(handler -> {
                     if (handler.succeeded()) {
                         final JsonObject result = handler.result();
