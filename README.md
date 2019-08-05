@@ -23,3 +23,12 @@ Configurable properties: in order to configure project you can use **application
 2) **port** - server port
 
 This project uses H2 db.
+
+
+How to use?
+
+Example:
+
+```groovy
+ curl -X GET 'http://localhost:8080/translate?languageTo=ru&languageFrom=en&text=hello'
+```
