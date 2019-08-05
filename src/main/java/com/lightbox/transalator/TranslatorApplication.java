@@ -62,7 +62,11 @@ public class TranslatorApplication implements CommandLineRunner {
                         )
                 ),
                 this.environment,
-                new SaveYandexTranslation(this.jdbcTemplate, this.platformTransactionManager, vertx)
+                new SaveYandexTranslation(
+                        this.jdbcTemplate,
+                        this.platformTransactionManager,
+                        vertx
+                )
         );
         vertx.deployVerticle(resource);
     }
