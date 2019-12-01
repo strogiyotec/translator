@@ -76,6 +76,7 @@
 
 
     <build>
+        <finalName>translator</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
