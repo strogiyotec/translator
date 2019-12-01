@@ -36,3 +36,17 @@ Example:
 ```groovy
  curl -X GET 'http://localhost:8080/translate?languageTo=ru&languageFrom=en&text=hello'
 ```
+
+To create docker image run following
+
+```groovy
+  ./build.sh
+```
+
+This command will create image named **translator** using Dockerfile from this repository.
+
+To start container run this
+
+```groovy
+  docker run -it --name translator_v1 -p 8080:8080 translator
+```
